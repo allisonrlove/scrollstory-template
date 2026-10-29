@@ -1,0 +1,156 @@
+/*****************************************************
+STORY FEATURES
+
+Style for the optional scrollstory extras: story tabs, reading progress bar,
+back-to-top button, and fade-in on scroll.
+
+Loads:    scrollstory pages only
+Used by:  nav/story-tabs.html, scrollstory/features.html
+Edit the variables just below to change colours, sizes and speed.
+*****************************************************/
+
+:root {
+  --tabs-bg: color-mix(in srgb, var(--bg-page) 92%, transparent);
+  --tabs-text: var(--text-muted);
+  --tabs-text-hover: var(--text-body);
+  --tabs-active: var(--accent-primary);
+  --tabs-border: var(--border-light);
+  --progress-color: var(--golden-clay);
+  --progress-height: 3px;
+  --reveal-distance: 18px;
+  --reveal-speed: 0.7s;
+}
+
+/* Tabs */
+.story-tabs {
+  position: sticky;
+  top: var(--story-tabs-top, 0px);
+  z-index: 98;
+  background: var(--tabs-bg);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--tabs-border);
+  font-family: var(--font-body);
+}
+
+.story-tabs-list {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+  max-width: 72rem;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
+}
+.story-tabs-list::-webkit-scrollbar { display: none; }
+.story-tabs-list li { margin: 0; padding: 0; flex: 0 0 auto; }
+
+.story-tabs .story-tab,
+.story-tabs .story-tab:visited {
+  display: block;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--tabs-text);
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.story-tabs .story-tab:hover,
+.story-tabs .story-tab:focus-visible {
+  color: var(--tabs-text-hover);
+  border-bottom-color: color-mix(in srgb, var(--tabs-active) 45%, transparent);
+}
+.story-tabs .story-tab.is-active,
+.story-tabs .story-tab[aria-current="page"] {
+  color: var(--tabs-text-hover);
+  border-bottom-color: var(--tabs-active);
+  font-weight: 600;
+}
+
+html.has-story-tabs {
+  scroll-padding-top: calc(var(--story-tabs-top, 0px) + var(--story-tabs-h, 0px) + 12px);
+}
+
+/* Reading progress */
+.story-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--progress-height);
+  z-index: 120;
+  pointer-events: none;
+}
+.story-progress-bar {
+  height: 100%;
+  background: var(--progress-color);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Back to top */
+.story-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 97;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: var(--text-on-dark);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.story-top[hidden] { display: none; }
+.story-top:hover { transform: translateY(-2px); }
+.story-top svg { width: 1.3rem; height: 1.3rem; fill: currentColor; }
+
+/* Fade in on scroll (classes are added by story-features.js) */
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition: opacity var(--reveal-speed) ease, transform var(--reveal-speed) ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Key figures */
+.story-stats { margin: 2.5rem 0; padding: 1.5rem 1rem; text-align: center;
+  background: var(--bg-accent); border-radius: 6px; }
+.story-stats-title { margin: 0 0 1rem; font-family: var(--font-body); font-size: 0.8rem;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+.story-stats-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem 3rem; }
+.story-stat { display: flex; flex-direction: column; min-width: 8rem; }
+.story-stat-number { font-family: var(--font-heading); font-size: clamp(2.2rem, 6vw, 3.4rem);
+  line-height: 1.1; color: var(--golden-clay-dark); font-variant-numeric: tabular-nums; }
+.story-stat-label { margin-top: 0.3rem; font-size: 0.95rem; color: var(--text-muted); }
+
+/* Video / embed */
+.story-embed { margin: 2rem 0; }
+.story-embed-frame { position: relative; width: 100%; aspect-ratio: 16 / 9;
+  background: var(--sage-dark); border-radius: 4px; overflow: hidden; }
+.story-embed-4x3 .story-embed-frame { aspect-ratio: 4 / 3; }
+.story-embed-1x1 .story-embed-frame { aspect-ratio: 1 / 1; }
+.story-embed-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.story-embed figcaption { margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+@media print {
+  .story-tabs, .story-progress, .story-top { display: none; }
+}

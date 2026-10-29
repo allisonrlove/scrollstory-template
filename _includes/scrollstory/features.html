@@ -1,0 +1,26 @@
+{%- comment -%}
+  Optional story features: reading progress bar, fade-in on scroll, and a
+  back-to-top button. Turn them on or off for every story in _config.yml
+  (story_features:), or for one story with front matter such as
+  progress-bar: false. Loaded by _layouts/scrollstory.html.
+{%- endcomment -%}
+{% assign f = site.story_features %}
+{% assign use_progress = f.progress_bar %}
+{% assign use_reveal = f.reveal %}
+{% assign use_top = f.back_to_top %}
+{% if page.progress-bar == false %}{% assign use_progress = false %}{% elsif page.progress-bar == true %}{% assign use_progress = true %}{% endif %}
+{% if page.reveal == false %}{% assign use_reveal = false %}{% elsif page.reveal == true %}{% assign use_reveal = true %}{% endif %}
+{% if page.back-to-top == false %}{% assign use_top = false %}{% elsif page.back-to-top == true %}{% assign use_top = true %}{% endif %}
+
+{% if use_progress %}
+<div class="story-progress" aria-hidden="true"><div class="story-progress-bar"></div></div>
+{% endif %}
+{% if use_top %}
+<button class="story-top" type="button" aria-label="Back to top" hidden>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8l-4.6 4.6L5 12z"/></svg>
+</button>
+{% endif %}
+<script>
+  window.storyFeatures = { reveal: {{ use_reveal | default: false }} };
+</script>
+<script src="{{ site.baseurl }}/assets/js/story-features.js"></script>

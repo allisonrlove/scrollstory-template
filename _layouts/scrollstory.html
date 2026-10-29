@@ -28,7 +28,7 @@
       %}
     {% endif %}
 
-
+    {% include nav/story-tabs.html %}
 
     <main id="main">
     <div class="container">
@@ -45,6 +45,8 @@
     {% include google_analytics.html %}
 
     {% include html/html-js.html %}
+
+    {% include scrollstory/features.html %}
 
     {% if page.autoscroll == true %}
       {% include scrollybox/auto-scroll.html %}

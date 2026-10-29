@@ -1,0 +1,36 @@
+{% comment %}
+  Video / embed: a responsive player for YouTube, Vimeo, or any embeddable page.
+
+  Parameters:
+    - url:     the normal link you copy from the browser (YouTube, Vimeo, or an
+               embed address) (required)
+    - caption: text under the video (optional)
+    - title:   short description for screen readers (default: "Embedded video")
+    - ratio:   16x9 (default), 4x3, or 1x1
+
+  Example:
+    {% include media/embed.html url="https://www.youtube.com/watch?v=VIDEO_ID" caption="A short film." %}
+{% endcomment %}
+{% assign src = include.url %}
+{% if src contains 'youtube.com/watch?v=' %}
+  {% assign id = src | split: 'v=' | last | split: '&' | first %}
+  {% assign src = 'https://www.youtube-nocookie.com/embed/' | append: id %}
+{% elsif src contains 'youtu.be/' %}
+  {% assign id = src | split: 'youtu.be/' | last | split: '?' | first %}
+  {% assign src = 'https://www.youtube-nocookie.com/embed/' | append: id %}
+{% elsif src contains 'vimeo.com/' %}
+  {% unless src contains 'player.vimeo.com' %}
+    {% assign id = src | split: 'vimeo.com/' | last | split: '?' | first %}
+    {% assign src = 'https://player.vimeo.com/video/' | append: id %}
+  {% endunless %}
+{% endif %}
+{% if include.url %}
+<figure class="story-embed story-embed-{{ include.ratio | default: '16x9' }}">
+  <div class="story-embed-frame">
+    <iframe src="{{ src }}" title="{{ include.title | default: 'Embedded video' | escape }}" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  {% if include.caption %}<figcaption>{{ include.caption }}</figcaption>{% endif %}
+</figure>
+{% else %}
+  <div class="xanthan-warning">embed include needs a url.</div>
+{% endif %}

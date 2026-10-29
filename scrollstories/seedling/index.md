@@ -13,6 +13,7 @@ header-position: 0px
 geo: [37.88, -81.08]
 placename: New River Gorge National Park
 toc-section: first
+story-tabs: auto
 tags:
     - history
     - campus

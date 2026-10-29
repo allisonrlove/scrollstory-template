@@ -2,3 +2,12 @@ title: Scrollstory Template
 baseurl: "/scrollstory-template"   # leave empty for username.github.io repos
 analytics_id:   # optional: paste your Google Analytics measurement ID (G-XXXXXXXXXX)
 search: true    # set to false to disable site search
+
+# Optional scrollstory extras. true = on, false = off for every story.
+# A single story can override any of these in its front matter
+# (e.g. progress-bar: false). See docs/reference/story-features.md.
+story_features:
+  tabs: true          # the tab bar under the top nav (needs story-tabs: in a story)
+  progress_bar: true  # thin reading-progress line at the top of the window
+  reveal: true        # paragraphs and images fade in as you scroll
+  back_to_top: true   # round button that appears after scrolling down

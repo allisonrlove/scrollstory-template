@@ -12,6 +12,17 @@ header-divider: ✦ ✦ ✦
 header-caption: Lt. A. W. Whipple, <em>Route Near the 35th Parallel, Map No. 2</em>, 1854. Pacific Railroad Survey, War Department.
 geo: [35.688, -105.938]
 placename: Santa Fe, New Mexico
+story-tabs:
+  - title: Santa Fe
+    section: Santa Fe
+  - title: The Northern Route
+    section: The Northern Route
+  - title: The Mojave
+    section: The Mojave
+  - title: Los Angeles
+    section: Los Angeles
+  - title: Forest story
+    url: /scrollstories/forest/
 tags:
   - maps
 ---
