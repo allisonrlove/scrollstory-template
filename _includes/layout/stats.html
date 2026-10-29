@@ -1,0 +1,29 @@
+{% comment %}
+  Key figures: a row of big numbers that count up when scrolled into view.
+
+  Parameters:
+    - stats: items separated by semicolons, each written  number|label
+             The number may carry text around it ($, %, +, commas, decimals).
+    - title: small heading above the row (optional)
+
+  Example:
+    {% include layout/stats.html title="By the numbers"
+       stats="1200|miles traveled; 12|weeks on the road; 85%|mules that survived" %}
+{% endcomment %}
+{% if include.stats %}
+<div class="story-stats">
+  {% if include.title %}<p class="story-stats-title">{{ include.title | escape }}</p>{% endif %}
+  <div class="story-stats-row">
+    {% assign items = include.stats | split: ';' %}
+    {% for item in items %}
+      {% assign parts = item | split: '|' %}
+      <div class="story-stat">
+        <span class="story-stat-number" data-count>{{ parts[0] | strip | escape }}</span>
+        <span class="story-stat-label">{{ parts[1] | strip | escape }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+  <div class="xanthan-warning">stats include needs stats="number|label; number|label".</div>
+{% endif %}

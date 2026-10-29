@@ -14,6 +14,21 @@ header-caption: Photo by <a href="https://unsplash.com/@sebastian_unrau">Sebasti
 header-position: 0px
 toc-section: piano
 autoscroll: true
+story-tabs:
+  - title: Basics
+    section: All the Basics Still Work
+  - title: Compare
+    section: "Juxtapose: Before/After Comparisons"
+  - title: Backgrounds
+    section: "Background Switching: Multiple Images"
+  - title: Side-Scroll
+    section: Side-Scroll Section
+  - title: Carousel
+    section: Image Carousel With Full Options
+  - title: Figures & video
+    section: Key Figures and Video Embeds
+  - title: Trail story
+    url: /scrollstories/trail/
 
 geo: [44.600000, -110.500000]
 placename: Yellowstone National Park
@@ -346,6 +361,15 @@ Mist softens the boundaries between trees." | split: '|'
   captions=forest_captions
 %}
 
+
+## Key Figures and Video Embeds
+
+Big numbers count up as they scroll into view, and a pasted video link becomes a responsive player.
+
+{% include layout/stats.html title="By the numbers"
+   stats="1200|miles of trail; 12|weeks on the road; 85%|of mules survived" %}
+
+{% include media/embed.html url="https://www.youtube.com/watch?v=aqz-KE-bpKQ" title="Big Buck Bunny" caption="Any YouTube or Vimeo link works here." %}
 
 ## What You've Learned
 - **Basic images and typography** — Images (figure + figure-wrap), headings, footnotes, pull quotes, block quotes, alert boxes

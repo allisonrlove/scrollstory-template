@@ -1,0 +1,38 @@
+{%- comment -%}
+  Story tabs: a slim bar of links under the top navigation.
+
+  Set them in a story's front matter. Each tab needs a title and EITHER:
+    section: the id of a heading further down this page (scrolls to it)
+    url:     another page on this site (/scrollstories/trail/) or a full link
+
+  story-tabs:
+    - title: Intro
+      section: introduction
+    - title: The Trail
+      url: /scrollstories/trail/
+
+  Or write  story-tabs: auto  to build one tab per "##" heading automatically.
+  Remove the story-tabs lines to hide the bar. See docs/reference/story-features.md.
+{%- endcomment -%}
+{% assign tabs_on = site.story_features.tabs %}
+{% if page.story-tabs-enabled == false %}{% assign tabs_on = false %}{% endif %}
+{% if page.story-tabs and tabs_on != false %}
+<nav class="story-tabs" aria-label="Story sections" data-story-tabs{% if page.story-tabs == 'auto' %} data-auto="true"{% endif %}>
+  <ul class="story-tabs-list">
+    {% if page.story-tabs != 'auto' %}
+      {% for tab in page.story-tabs %}
+        {% if tab.section %}
+          <li><a class="story-tab" href="#{{ tab.section }}" data-section="{{ tab.section }}">{{ tab.title }}</a></li>
+        {% else %}
+          {% if tab.url contains '://' %}
+            {% assign tab_href = tab.url %}
+          {% else %}
+            {% assign tab_href = tab.url | prepend: site.baseurl %}
+          {% endif %}
+          <li><a class="story-tab" href="{{ tab_href }}"{% if tab.url == page.url %} aria-current="page"{% endif %}{% if tab.url contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ tab.title }}</a></li>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
